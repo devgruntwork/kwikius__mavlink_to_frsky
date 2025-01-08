@@ -1,15 +1,14 @@
 /**
-    * Perform a startup LED sequence to indicate the system is alive.
+    * Send FrSky data every 20 milliseconds.
+    * Note: The complex time division in FrSky_send_message may be unnecessary.
+    * Additionally, timestamp information could be used to send data periodically.
     */
-   void do_startup_leds()
+   ms frsky_loop_time{0};
+   void update_frsky()
    {
-      turn_on_led<blink_led>();
-      turn_on_led<mavlink_heartbeat_led>();
-
-      wait(ms{1000});
-
-      turn_off_led<mavlink_heartbeat_led>();
-
-      wait(ms{500});
-      turn_off_led<blink_led>();
+      // Check if the FrSky data needs to be updated
+      if( ( millis() - frsky_loop_time ) >= ms{20} ){
+         frsky_loop_time += ms{20};
+         FrSky_send_message();
+      }
    }
