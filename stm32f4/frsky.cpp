@@ -173,7 +173,7 @@ namespace {
       return esc_write_sp(lat_msg.get() + 4, 3, false);
    }
 
-   //longtitude
+   // Longitude
    int16_t update_lon_msg1()
    {
       lon_msg = normalise_angle(the_aircraft.location.gps_lon);
