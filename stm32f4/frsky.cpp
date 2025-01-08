@@ -159,7 +159,7 @@ namespace {
    }
 
    //return actual num of chars written in escapes
-   int16_t update_lat_msg1()
+   int16_t sendLatitudeMessagePart1()
    {
        lat_msg = normalise_angle(the_aircraft.location.gps_lat);
        return esc_write_sp(lat_msg.get(), 2, true);
