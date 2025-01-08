@@ -1,16 +1,15 @@
-/*
- Copyright (c) 2012-2013 Andy Little
+/**
+    * Perform a startup LED sequence to indicate the system is alive.
+    */
+   void do_startup_leds()
+   {
+      turn_on_led<blink_led>();
+      turn_on_led<mavlink_heartbeat_led>();
 
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+      wait(ms{1000});
 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU General Public License for more details.
+      turn_off_led<mavlink_heartbeat_led>();
 
- You should have received a copy of the GNU General Public License
- along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
+      wait(ms{500});
+      turn_off_led<blink_led>();
+   }
