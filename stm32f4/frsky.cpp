@@ -164,7 +164,7 @@ namespace {
        lat_msg = normalise_angle(the_aircraft.location.gps_lat);
        return esc_write_sp(lat_msg.get(), 2, true);
    }
-   int16_t update_lat_msg2()
+   int16_t sendLatitudeMessagePart2()
    {
        return esc_write_sp(lat_msg.get() + 2, 2, false);
    }
