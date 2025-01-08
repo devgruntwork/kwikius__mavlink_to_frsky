@@ -1,19 +1,19 @@
 
 /*
- Copyright (c) 2012 - 2013 Andy Little 
+ Copyright (c) 2012-2013 Andy Little
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
- along with this program. If not, see <http://www.gnu.org/licenses/>
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "resources.hpp"
@@ -55,7 +55,9 @@ int main()
 
 namespace {
 
-   // do a startup led sequence to show we are alive
+   /**
+    * Perform a startup LED sequence to indicate the system is alive.
+    */
    void do_startup_leds()
    {
       turn_on_led<blink_led>();
@@ -69,15 +71,15 @@ namespace {
       turn_off_led<blink_led>();
    }
 
-   /*
-     send some frsky data every 1/50th sec
-     aactually dont need all the complex time division in FrSky_send_message
-     also could get timestamp info to send periodically
-   */
+   /**
+    * Send FrSky data every 20 milliseconds.
+    * Note: The complex time division in FrSky_send_message may be unnecessary.
+    * Additionally, timestamp information could be used to send data periodically.
+    */
    ms frsky_loop_time{0};
    void update_frsky()
    {
-  // if lat updated etc...
+      // Check if the FrSky data needs to be updated
       if( ( millis() - frsky_loop_time ) >= ms{20} ){
          frsky_loop_time += ms{20};
          FrSky_send_message();
