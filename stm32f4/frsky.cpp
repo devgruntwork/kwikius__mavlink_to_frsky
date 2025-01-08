@@ -1,16 +1,16 @@
 /*
- Copyright (c) 2012 - 2013 Andy Little 
+ Copyright (c) 2012-2013 Andy Little
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
@@ -159,21 +159,21 @@ namespace {
    }
 
    //return actual num of chars written in escapes
-   int16_t update_lat_msg1()
+   int16_t sendLatitudeMessagePart1()
    {
        lat_msg = normalise_angle(the_aircraft.location.gps_lat);
        return esc_write_sp(lat_msg.get(), 2, true);
    }
-   int16_t update_lat_msg2()
+   int16_t sendLatitudeMessagePart2()
    {
        return esc_write_sp(lat_msg.get() + 2, 2, false);
    }
-   int16_t update_lat_msg3()
+   int16_t sendLatitudeMessagePart3()
    {
       return esc_write_sp(lat_msg.get() + 4, 3, false);
    }
 
-   //longtitude
+   // Longitude
    int16_t update_lon_msg1()
    {
       lon_msg = normalise_angle(the_aircraft.location.gps_lon);
