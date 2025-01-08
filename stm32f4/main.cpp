@@ -55,7 +55,9 @@ int main()
 
 namespace {
 
-   // do a startup led sequence to show we are alive
+   /**
+    * Perform a startup LED sequence to indicate the system is alive.
+    */
    void do_startup_leds()
    {
       turn_on_led<blink_led>();
