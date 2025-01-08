@@ -1,14 +1,29 @@
 /**
-    * Send FrSky data every 20 milliseconds.
-    * Note: The complex time division in FrSky_send_message may be unnecessary.
-    * Additionally, timestamp information could be used to send data periodically.
+    * Update the LED states based on the MavLink heartbeat and system status.
     */
-   ms frsky_loop_time{0};
-   void update_frsky()
+   ms mavlink_timer{0};
+   ms blink_timer{0};
+   uint32_t cur_num_heartbeats = 0;
+   void update_leds()
    {
-      // Check if the FrSky data needs to be updated
-      if( ( millis() - frsky_loop_time ) >= ms{20} ){
-         frsky_loop_time += ms{20};
-         FrSky_send_message();
+      // Get the current number of heartbeats
+      uint32_t num_heartbeats = get_num_heartbeats();
+
+      // Check if a new heartbeat has been received
+      if ( num_heartbeats > cur_num_heartbeats ){
+         cur_num_heartbeats = num_heartbeats;
+         mavlink_timer = millis();
+         turn_on_led<mavlink_heartbeat_led>();
+      } else {
+         // Turn off the MavLink heartbeat LED after a 250ms pulse
+         if ( led_is_on<mavlink_heartbeat_led>() && (( millis() - mavlink_timer ) >= ms{250})){
+            turn_off_led<mavlink_heartbeat_led>();
+         }
+      }
+
+      // Blink the system status LED at 50% duty cycle
+      if (( millis() - blink_timer ) >= ms{500}){
+         blink_timer = millis();
+         complement_led<blink_led>();
       }
    }
