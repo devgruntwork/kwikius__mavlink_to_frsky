@@ -168,7 +168,7 @@ namespace {
    {
        return esc_write_sp(lat_msg.get() + 2, 2, false);
    }
-   int16_t update_lat_msg3()
+   int16_t sendLatitudeMessagePart3()
    {
       return esc_write_sp(lat_msg.get() + 4, 3, false);
    }
