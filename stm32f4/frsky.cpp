@@ -76,20 +76,23 @@ namespace {
        }
        return static_cast<char>(sum);
    }
-   // sort so lat and lon are uint32_t.. currently int32_t
+   // Sort so lat and lon are uint32_t.. currently int32_t
    template<typename T>
    create_message<T>::create_message(char msg_id, T const & val)
    {
        m_msg_buf[0] = FrSky_msgID::header_value;
        m_msg_buf[1] = msg_id;
-    
+
        converter conv;
        conv.m_raw_value = val;
-    
+
+       // Copy the value into the message buffer
        for (size_t i = 0; i < sizeof(T); ++i) {
            m_msg_buf[2 + i] = conv.m_array[i];
        }
-       m_msg_buf[length -1] = FrSky_do_checksum<length>(m_msg_buf);
+
+       // Calculate the checksum
+       m_msg_buf[length - 1] = FrSky_do_checksum<length>(m_msg_buf);
    }
     
    template <typename T>
